@@ -1,41 +1,71 @@
 using System;
+using System.Diagnostics;
 using System.Dynamic;
 
-//design for Develop02, the design for the journal program
+
 class Program
-{   
-    
+{
     static void Main(string[] args)
     {
-       Console.WriteLine("Welcome to the Journal Program!");
-    }
-    static void DisplayMenu()
-    {
-        Console.WriteLine("1. Write");
-        Console.WriteLine("2. Dispaly");
-        Console.WriteLine("3. Load");
-        Console.WriteLine("4. Save");
-        Console.WriteLine("5. Quit");
-    }
-}
+        Fraction f1 = new Fraction();
+        Console.WriteLine(f1.GetFractionString());
+        Console.WriteLine(f1.GetDecimalValue());
 
-public class Entry
-{
-    public DateTime date {get; set;}
-    public string prompt {get; set;}
-    public string response {get; set;}
+        Fraction f2 = new Fraction(5);
+        Console.WriteLine(f2.GetFractionString());
+        Console.WriteLine(f2.GetDecimalValue());
 
-    public void Display()
-    {
-        Console.WriteLine($"Date: {date}");
-        Console.WriteLine(prompt);
-        Console.WriteLine(response);
-    }
+        Fraction f3 = new Fraction(3, 4);
+        Console.WriteLine(f3.GetFractionString());
+        Console.WriteLine(f3.GetDecimalValue());
     
+    }
 }
-public class Journal
+class Fraction
 {
-   
+    private int _top;
+    private int _bottom;
+
+    public Fraction()
+    {
+        _top = 1;
+        _bottom = 1;
+    }
+    public Fraction(int wholeNumber)
+    {
+        _top = wholeNumber;
+        _bottom = 1;
+    }
+    public Fraction(int top, int bottom)
+    {
+        _top = top;
+        _bottom = bottom;
+    }
+
+    public int GetTop()
+    {
+        return _top;
+    }
+    public void SetTop(int top)
+    {
+        _top = top;
+    }
+    public int GetBottom()
+    {
+        return _bottom;
+    }
+    public void SetBottom(int bottom)
+    {
+        _bottom = bottom;
+    }
+    public string GetFractionString()
+    {
+        return $"{_top}/{_bottom}";
+    }
+    public double GetDecimalValue()
+    {
+        return (double)_top / _bottom;
+    }
 }
 
 
