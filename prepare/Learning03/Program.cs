@@ -8,6 +8,7 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Fractions Program");
+        Console.WriteLine("");
 
         Fraction f1 = new Fraction();
         Console.WriteLine(f1.GetFractionString());
@@ -20,6 +21,8 @@ class Program
         Fraction f3 = new Fraction(3, 4);
         Console.WriteLine(f3.GetFractionString());
         Console.WriteLine(f3.GetDecimalValue());
+
+        Console.WriteLine("");
     
     }
 }
