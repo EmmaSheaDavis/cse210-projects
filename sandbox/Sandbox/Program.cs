@@ -4,17 +4,46 @@ class Program
 {
     static void Main(string[] args)
     {
-        //This is a program to compute the area of a circle.
+        Car car = new Car(2006, "Hyundai", "Sonata", 4);
+        Console.WriteLine(car.GetVehicleSummary());
+        Console.WriteLine(car.GetDoorNumber());
+    }
 
-        //Get the radius of the circle from the user.
-        Console.Write("Please enter the raidus: ");
-        string text = Console.ReadLine();
-        double radius = double.Parse(text);
+    public class Vehicle
+    {
+        private int _yearManufactured;
+        private string _manufacturer;
+        private string _modelName;
 
-        //Compute area of circle
-        double area = Math.PI * radius * radius;
+        public Vehicle(int yearManufactured, string manufacturer, string modelName)
+        {
+            _yearManufactured = yearManufactured;
+            _manufacturer = manufacturer;
+            _modelName = modelName;
+        }
 
-        //Display result for user to see
-        Console.WriteLine($"Area of the circle: {area}");
+        public int GetYearManufactured()
+        {
+            return _yearManufactured;
+        }
+
+        public string GetVehicleSummary()
+        {
+            return $"{_manufacturer}: {_modelName} - {_yearManufactured}";
+        }
+    }
+
+    public class Car : Vehicle
+    {
+        private int _numberOfDoors;
+        public Car(int yearManufactured, string manufacturer, string modelName, int numberOfDoors) : base(yearManufactured, manufacturer, modelName)
+        {
+            _numberOfDoors = numberOfDoors;
+        }
+
+        public string GetDoorNumber()
+        {
+            return $"Number of doors: {_numberOfDoors}";
+        }
     }
 }
