@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Dynamic;
 using System.Formats.Asn1;
 using System.Reflection.Metadata.Ecma335;
 
@@ -20,79 +21,69 @@ class Program
 
         foreach (Shape s in shapes)
         {
-            Console.WriteLine();
-            string color = s.GetColor();
-
-            string name = s.GetName();
-
-            double area = s.GetArea();
-
-            Console.WriteLine($"The {name} shape is {color} and its area is {area}.");
+            DisplayShape(s);
         }
     }
+    public static void DisplayShape(Shape shapes)
+    {
+
+        string color = shapes.Color;
+
+        string name = shapes.Name;
+
+        double area = shapes.GetArea();
+
+        Console.WriteLine($"The {name} shape is {color} and its area is {area}.");
+        Console.WriteLine();
+    }
+
 }
 
 public abstract class Shape
 {
-    private string _name;
-    private string _color;
+    // private string _name;
+    // private string _color;
 
     public Shape(string color, string name)
     {
-        _color = color;
-        _name = name;
+        Color = color;
+        Name = name;
     }
-
-    public string GetColor()
-    {
-        return _color;
-    }
-    public string GetName()
-    {
-        return _name;
-    }
-    public void SetName(string name)
-    {
-        _name = name;
-    }
-
-    public void SetColor(string color)
-    {
-        _color = color;
-    }
+    public string Color { get; set; }
+    public string Name { get; set; }
 
     public abstract double GetArea();
 }
 
 public class Square : Shape
 {
-    private double _side;
+    private double Side { get; set; }
 
     public Square(string color, string name, double side) : base(color, name)
     {
-        _side = side;
+        Side = side;
     }
 
     public override double GetArea()
     {
-        return _side * _side;
+        return Side * Side;
     }
 }
 
 public class Rectangle : Shape
 {
-    private double _length;
-    private double _width;
+    private double Length{ get; set; }
+    private double Width{ get; set; }
 
     public Rectangle(string color, string name, double length, double width) : base(color, name)
     {
-        _length = length;
-        _width = width;
+        Length = length;
+        Width = width;
     }
 
     public override double GetArea()
     {
-        return _length * _width;
+        return Length * Width;
     }
 }
 
