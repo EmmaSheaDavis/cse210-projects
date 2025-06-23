@@ -49,8 +49,8 @@ public abstract class Shape
         Color = color;
         Name = name;
     }
-    public string Color { get; set; }
-    public string Name { get; set; }
+    private string Color { get; set; }
+    private string Name { get; set; }
 
     public abstract double GetArea();
 }
