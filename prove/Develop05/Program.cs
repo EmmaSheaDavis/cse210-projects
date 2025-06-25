@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
 class Program
@@ -22,12 +23,15 @@ class Program
         while (true)
         {
             Console.Clear();
+            _questManager.DisplayScore();
+            Console.WriteLine();
             DisplayMenu();
             Console.WriteLine("Select a choice from the menu: ");
             string choice = Console.ReadLine();
 
             if (choice == "1")
             {
+                Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine("The types of Goals are:");
                 Console.WriteLine("1. Simple Goal");
@@ -65,12 +69,14 @@ class Program
             }
             else if (choice == "2")
             {
+                Console.Clear();
                 _questManager.DisplayGoals();
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             }
             else if (choice == "3")
             {
+                Console.Clear();
                 _questManager.SaveToFile("goals.txt");
                 Console.WriteLine("Goals Saved!");
                 Console.WriteLine("Press any key to continue...");
@@ -78,6 +84,7 @@ class Program
             }
             else if (choice == "4")
             {
+                Console.Clear();
                 _questManager.LoadFromFile("goals.txt");
                 Console.WriteLine("Goals loaded!");
                 Console.WriteLine("Press any key to conintue...");
@@ -105,6 +112,7 @@ class Program
             }
             else if (choice == "6")
             {
+                Console.Clear();
                 Console.WriteLine("Thank you for using the Goal Program.");
                 break;
             }
@@ -235,7 +243,7 @@ public class ChecklistGoal : Goal
     }
     public override string GoalStatus()
     {
-        return $"{Name}: {Description} (Points: {Points}, Completed {_timesCompleted}/{_targetCount})";
+        return $"{Name}: {Description} (Points: {Points}, Completed {_timesCompleted}/{_targetCount}, {_bonusPoints} Bonus points upon completion.)";
     }
     public override string SaveGoal()
     {
@@ -279,10 +287,18 @@ public class QuestManager
     {
         if (goalIndex >= 0 && goalIndex < _goals.Count)
         {
-            int previousScore = _score;
-            _score += _goals[goalIndex].RecordGoal();
-            Console.WriteLine("Goal Recorded!");
-            CheckLevelUp(previousScore);
+            Goal goal = _goals[goalIndex];
+            if (goal.IsComplete())
+            {
+                Console.WriteLine($"The goal '{goal.GoalStatus()}' is already complete and cannot be recorded again.");
+            }
+            else
+            {
+                int previousScore = _score;
+                _score += goal.RecordGoal();
+                Console.WriteLine("Goal Recorded!");
+                CheckLevelUp(previousScore);
+            }
         }
         else
         {
@@ -304,11 +320,13 @@ public class QuestManager
             {
                 if (goal.IsComplete())
                 {
-                    Console.WriteLine("[X]" + goal.GoalStatus());
+                    Console.WriteLine($"{index}.[X]" + goal.GoalStatus());
+                    index++;
                 }
                 else
                 {
-                    Console.WriteLine("[ ]" + goal.GoalStatus());
+                    Console.WriteLine($"{index}.[ ]" + goal.GoalStatus());
+                    index++;
                 }
             }
         }
