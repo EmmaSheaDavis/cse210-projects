@@ -33,7 +33,7 @@ class Program
 
     while (running)
         {
-            // Console.Clear();
+            Console.Clear();
             DisplayMenu();
             Console.Write("Select an option (1-7): ");
             string choice = Console.ReadLine();
